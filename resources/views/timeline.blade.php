@@ -3,31 +3,54 @@
     <x-container>
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-7">
-                <div class="space-y-6">
-                    <div class="border rounded-xl p-5 space-y-5">
-                        @foreach($statuses as $status)
+                <x-card>
+                    <form action="" method="post">
                         <div class="flex">
                             <div class="flex-shrink-0 mr-3">
-                                <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150" alt="{{ $status->user->name }}">
+                                <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150" alt="{{ Auth::user()->name }}">
                             </div>
-                            <div>
+                            <div class="w-full">
                                 <div class="font-bold">
-                                    {{ $status->user->name }}
+                                    {{ Auth::user()->name }}
                                 </div>
-                                <div class="leading-relaxed">
-                                    {{ $status ->body }}
+                                <div class="my-2">
+                                    <textarea name="body" placeholder="What is on your mind" id="body" class="form-textarea w-full border-gray-300 rounded-xl resize-none focus:border-red-500 focus:ring focus:ring-red-200 transition duration-200"></textarea>
                                 </div>
-                                <div class="text-sm text-gray-600">
-                                    {{ $status->created_at->diffForHumans() }}
+                                <div class="text-right">
+                                    <x-button>Post</x-button>
                                 </div>
                             </div>
                         </div>
+                    </form>
+
+                </x-card>
+                <div class="space-y-6 mt-5">
+                    <div class="rounded-xl space-y-5">
+                        @foreach($statuses as $status)
+                            <x-card>
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mr-3">
+                                        <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150" alt="{{ $status->user->name }}">
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">
+                                            {{ $status->user->name }}
+                                        </div>
+                                        <div class="leading-relaxed">
+                                            {{ $status ->body }}
+                                        </div>
+                                        <div class="text-sm text-gray-600">
+                                            {{ $status->created_at->diffForHumans() }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </x-card>
                         @endforeach
                     </div>
                 </div>
             </div>
             <div class="col-span-5">
-                <div class="border p-5 rounded-xl">
+                <x-card>
                     <h1 class="font-semibold mb-5">Recently Followed</h1>
                     <div class="space-y-5">
                         @foreach(Auth::user()->follows()->limit(5)->get() as $user)
@@ -46,7 +69,7 @@
                         </div>
                         @endforeach
                     </div>
-                </div>
+                </x-card>
             </div>
         </div>
     </x-container>
