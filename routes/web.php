@@ -11,8 +11,7 @@ Route::middleware('auth')->group(function()
 
     Route::get('/timeline', TimelineController::class)->name('timeline');
     Route::post('status', [StatusController::class, 'store'])->name('statuses.store');
-
-    Route::get('profile/{user}', ProfileInformationController::class)->name('profile');
 });
 
+Route::get('profile/{user}', ProfileInformationController::class)->name('profile');
 require __DIR__.'/auth.php';
