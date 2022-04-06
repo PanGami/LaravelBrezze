@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -46,6 +47,14 @@ class User extends Authenticatable
     public function statuses()
     {
         return $this->hasMany(Status::class);
+    }
+
+    public function makeStatus($string)
+    {
+        $this->statuses()->create([
+            'body' => $string,
+            'identifier' => Str::slug(Str::random(32) , $this->id),
+        ]);
     }
 
     public function timeline()
