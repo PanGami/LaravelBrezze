@@ -11,7 +11,7 @@ class StatusController extends Controller
 {
     public function store(StatusRequest $request)
     {
-        $request->make($request->body);
+        $request->make();
         return redirect()->back();
     }
 }
